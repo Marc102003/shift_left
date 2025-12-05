@@ -1,4 +1,4 @@
-FROM ubi7/ubi:7.7
+FROM registry.redhat.io/ubi7/ubi:7.7
 
 # Variable d'entorn
 ENV JBOSS_HOME=/opt/jboss
