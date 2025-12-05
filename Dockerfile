@@ -1,13 +1,11 @@
-FROM debian:10
+FROM alpine:3.20
 
-LABEL org.opencontainers.image.description="Imatge vulnerable per proves amb Trivy"
+# Metadades útils
+LABEL org.opencontainers.image.description="Imatge bàsica per provar GitHub Actions + Trivy"
+LABEL org.opencontainers.image.licenses="MIT"
 
-# Reconfigura les fonts APT a l'arxiu antic
-RUN sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list && \
-    sed -i 's|security.debian.org|archive.debian.org|g' /etc/apt/sources.list && \
-    echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid && \
-    apt-get update && \
-    apt-get install -y curl openssl apache2 python && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+# Instal·la un paquet senzill per tenir alguna cosa a escanejar
+RUN apk add --no-cache curl
 
-CMD echo "⚠️ Imatge de prova amb vulnerabilitats (per a Trivy)" && apache2 -v && openssl version
+# Defineix un script d'entrada directament dins el Dockerfile
+CMD echo "Hola! Aquesta és una imatge de prova per a GitHub Actions + Trivy." && curl --version
