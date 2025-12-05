@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  FULL_IMAGE: quay.io/rh_ee_jfont/shiftleft:v1
+  FULL_IMAGE: quay.io/marclv10/shift_left:v1
 
 jobs:
   build-scan-push:
