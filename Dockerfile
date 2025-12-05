@@ -9,3 +9,4 @@ RUN apk add --no-cache curl
 
 # Defineix un script d'entrada directament dins el Dockerfile
 CMD echo "Hola! Aquesta és una imatge de prova per a GitHub Actions + Trivy." && curl --version
+# commit de prova per workflow
