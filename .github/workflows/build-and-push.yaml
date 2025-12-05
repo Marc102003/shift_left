@@ -16,10 +16,6 @@ jobs:
       - name: 🧩 Checkout code
         uses: actions/checkout@v4
 
-      - name: Login to Red Hat registry
-        run: |
-         echo "${{ secrets.QUAY_USER }}" | docker login registry.redhat.io -u ${{ secrets.QUAY_USER }} --password-stdin
-
       - name: 🔧 Build container image
         run: |
           docker build -t $FULL_IMAGE .
