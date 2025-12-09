@@ -25,7 +25,7 @@ jobs:
         with:
           image-ref: ${{ env.FULL_IMAGE }}
           severity: HIGH,CRITICAL
-          exit-code: 0
+          exit-code: 1
           ignore-unfixed: true
       
       # Generate SBOM with Syft (syft-json format)
@@ -34,7 +34,7 @@ jobs:
          docker run --rm \
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v "$PWD":/work \
-          anchore/syft:latest "$FULL_IMAGE" -o syft-json > sbom.syft.json
+          anchore/syft:latest "$FULL_IMAGE" --output syft-json=/work/sbom.syft.json
          test -s sbom.syft.json && echo "SBOM created: sbom.syft.json"
          
       - name: Upload SBOM artifact
@@ -50,7 +50,7 @@ jobs:
         run: |
          docker run --rm \
           -v "$PWD":/work \
-          anchore/grype:latest /work/sbom.syft.json \
+          anchore/grype:latest sbom:/work/sbom.syft.json \
            --fail-on high \
            --only-fixed=false 
 
