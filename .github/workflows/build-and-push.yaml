@@ -16,13 +16,6 @@ jobs:
       - name: 🧩 Checkout code
         uses: actions/checkout@v4
 
-      - name: Upload JBoss ZIP as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: jboss-zip
-          path: shift_left/jboss-eap-7.2.0.zip
-          retention-days: 14
-
       - name: 🔧 Build container image
         run: |
           docker build -t $FULL_IMAGE .
@@ -34,7 +27,7 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: 1
           ignore-unfixed: true
-
+      
       # Generate SBOM with Syft (syft-json format)
       - name: Generate SBOM (Syft)
         run: |
