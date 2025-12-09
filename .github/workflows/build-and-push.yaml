@@ -69,7 +69,13 @@ jobs:
           git config user.email "github-actions@github.com"
           git config user.name "GitHub Actions"
 
+          mkdir -p sbom
           cp sbom.syft.json sbom/sbom.syft.json
+
+          git add sbom/sbom.syft.json
+          git commit -m "Add SBOM from pipeline"
+          git push origin main
+
 
           git add sbom/sbom.syft.json
           git commit -m "Add SBOM from pipeline"
