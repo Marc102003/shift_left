@@ -36,6 +36,7 @@ jobs:
           -v "$PWD":/work \
           anchore/syft:latest "$FULL_IMAGE" --output syft-json=/work/sbom.syft.json
          test -s sbom.syft.json && echo "SBOM created: sbom.syft.json"
+
          
       - name: Upload SBOM artifact
         uses: actions/upload-artifact@v4
@@ -48,11 +49,12 @@ jobs:
        # Evaluate SBOM with Grype (fail build on HIGH or CRITICAL vulns)
       - name: Vulnerability scan (Grype on SBOM)
         run: |
-         docker run --rm \
-          -v "$PWD":/work \
-          anchore/grype:latest sbom:/work/sbom.syft.json \
-           --fail-on high \
-           --only-fixed=false 
+          docker run --rm \
+            -v "$PWD":/work \
+            anchore/grype:latest /work/sbom.syft.json \
+            --fail-on high \
+            --only-fixed=false
+ 
 
       - name: 🔑 Login to Quay.io
         run: |
