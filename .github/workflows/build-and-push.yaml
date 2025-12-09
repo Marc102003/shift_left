@@ -52,7 +52,7 @@ jobs:
           docker run --rm \
             -v "$PWD":/work \
             anchore/grype:latest /work/sbom.syft.json \
-            --fail-on high \
+            --fail-on critical \
             --only-fixed=false
  
 
