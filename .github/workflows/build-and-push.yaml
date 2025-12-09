@@ -65,6 +65,8 @@ jobs:
           docker push $FULL_IMAGE
       
       - name: Commit SBOM to Git repo
+        env:
+          GIT_PAT: ${{ secrets.TOKEN_GIT }}
         run: |
           git config user.email "github-actions@github.com"
           git config user.name "GitHub Actions"
@@ -74,6 +76,5 @@ jobs:
 
           git add sbom/sbom.syft.json
           git commit -m "Add SBOM from pipeline" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.TOKEN_GIT }}@github.com/Marc102003/shift_left.git main
-
+          git push https://x-access-token:$GIT_PAT@github.com/Marc102003/shift_left.git main
 
