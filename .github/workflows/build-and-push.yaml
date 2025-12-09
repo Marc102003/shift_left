@@ -61,3 +61,15 @@ jobs:
       - name: 🚀 Push image to Quay.io
         run: |
           docker push $FULL_IMAGE
+      
+      - name: Commit SBOM to Git repo
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+
+          cp sbom.syft.json sbom/sbom.syft.json
+
+          git add sbom/sbom.syft.json
+          git commit -m "Add SBOM from pipeline"
+          git push origin main
+
