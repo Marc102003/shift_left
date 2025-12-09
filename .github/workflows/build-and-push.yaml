@@ -27,7 +27,7 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: 1
           ignore-unfixed: true
-
+      
       # Generate SBOM with Syft (syft-json format)
       - name: Generate SBOM (Syft)
         run: |
